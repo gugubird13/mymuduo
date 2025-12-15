@@ -14,3 +14,5 @@ sudo make install
 ```
 
 安装完成后，可以通过在编译选项中添加 `-luring` 来链接 liburing 库。
+
+使用 io_uring Poller 能够在大量高并发的情况下(1000 连接， 4KB消息大小) 平均QPS 从 6000多提高到8000多。
