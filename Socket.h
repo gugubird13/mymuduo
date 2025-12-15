@@ -1,0 +1,39 @@
+#pragma once
+
+#include "noncopyable.h"
+
+// 封装 socket fd
+// InetAddress
+class InetAddress;
+
+class Socket : noncopyable::noncopyable
+{
+public:
+    explicit Socket(int sockfd): sockfd_(sockfd)
+    {}
+
+    ~Socket();
+
+    int fd() const { return sockfd_; }
+
+    void bindAddress(const InetAddress &localaddr);
+    void listen();
+    int accept(InetAddress* peeraddr);
+
+    void shutdownWrite();
+
+    /// 一些更改 tcp选项的函数
+
+    void setTcpNoDelay(bool on);
+
+    void setReuseAddr(bool on);
+
+    void setReusePort(bool on);
+
+    void setKeepAlive(bool on);
+
+    ///
+
+private:
+    const int sockfd_;
+};
